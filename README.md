@@ -65,7 +65,7 @@ What makes it **unique** is the integration of an **AI-based username suggestion
 ```xml
    <connectionStrings>
 			<add name="MyDbConnection"
-					 connectionString="Server=SENSEI\SERVERKARANI;Database=Dummy;Trusted_Connection=True;TrustServerCertificate=True"
+					 connectionString="Server=MACHINENAME/INSTANCENAME;Database=DATABASENAME;Trusted_Connection=True;TrustServerCertificate=True"
 					 providerName="System.Data.SqlClient" />
 		</connectionStrings>
 ```
