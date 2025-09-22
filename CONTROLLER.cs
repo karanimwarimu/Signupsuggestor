@@ -20,13 +20,50 @@ namespace LOGGINN
     public class CONTROLLER
     {
         
-        private static string conn = "Data Source=localhost;Initial Catalog= playtool;Integrated Security=True";
-      // private static string conn = ConfigurationManager.ConnectionStrings["MyDbConnection"].ConnectionString;
+        //private static string conn = "Data Source=localhost;Initial Catalog= playtool;Integrated Security=True";
+       private static string conn = ConfigurationManager.ConnectionStrings["MyDbConnection"].ConnectionString;
 
 
+        public CONTROLLER()
+        {
+            EnsureTableExists();
+        }
 
+        private void EnsureTableExists()
+        {
+            string checkTable = @"
+            IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='DummieLogIn' AND xtype='U')
+            BEGIN
+                CREATE TABLE DummieLogIn (
+                    Id INT IDENTITY(1,1) PRIMARY KEY,
+                    userName NVARCHAR(50) NOT NULL,
+                    firstName NVARCHAR(50) NOT NULL,
+                    lastName NVARCHAR(50) NOT NULL,
+                    UserEmail NVARCHAR(100) NOT NULL UNIQUE,
+                    userPassword NVARCHAR(255) NOT NULL,
+                    role NVARCHAR(20) DEFAULT 'USER'
+                )
+            END";
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(conn))
+                {
+                    connection.Open();
+                    using (SqlCommand command = new SqlCommand(checkTable, connection))
+                    {
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error ensuring table exists: " + ex.Message);
+            }
+        }
         public void SaveUserData(string username, string firstname, string lastname, string email, string pasowrd, string userrole)
         {
+            EnsureTableExists();
             string sqlstringsave = " INSERT INTO DummieLogIn (userName , firstName , lastName , UserEmail , userPassword , role ) " +
                                 "   VALUES ( @username , @firstname , @lastname , @useremail , @userpassword , @userrole ) ";
 
@@ -70,6 +107,10 @@ namespace LOGGINN
 
         public static bool verifyUSer(string username, string password)
         {
+            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
+            {
+                return false;
+            }
             string queryString = " SELECT userPassword FROM DummieLogIn WHERE userName = @username ";
             try
             {
@@ -163,7 +204,7 @@ namespace LOGGINN
         public class UsernameGenerator
         {
             private readonly string apiUrl = "https://api.openai.com/v1/chat/completions"; 
-            //private readonly string apiKey = "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"; 
+           
             private readonly HttpClient client = new HttpClient();
             string apiKey = ConfigurationManager.AppSettings["OpenAI_API_Key"];
             public async Task<List<string>> SuggestPasswordAsync(string fName, string lName, string prevUsername)
