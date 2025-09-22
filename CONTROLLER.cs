@@ -7,6 +7,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Drawing.Text;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Net.Http;
 using System.Net.NetworkInformation;
 using System.Text;
@@ -20,7 +21,6 @@ namespace LOGGINN
     public class CONTROLLER
     {
         
-        //private static string conn = "Data Source=localhost;Initial Catalog= playtool;Integrated Security=True";
        private static string conn = ConfigurationManager.ConnectionStrings["MyDbConnection"].ConnectionString;
 
 
@@ -206,7 +206,24 @@ namespace LOGGINN
             private readonly string apiUrl = "https://api.openai.com/v1/chat/completions"; 
            
             private readonly HttpClient client = new HttpClient();
-            string apiKey = ConfigurationManager.AppSettings["OpenAI_API_Key"];
+
+            string apiKey;        
+            public UsernameGenerator()
+            {
+                try
+                {
+                    apiKey = ConfigurationManager.AppSettings["OpenAI_API_Key"];
+                    if (string.IsNullOrEmpty(apiKey))
+                    {
+                        throw new Exception("API key is missing in App.config");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Failed to load OpenAI API key: " + ex.Message);
+                    apiKey = string.Empty; // fallback, prevents null reference
+                }
+            }
             public async Task<List<string>> SuggestPasswordAsync(string fName, string lName, string prevUsername)
             {
                 fName = fName?.Trim().ToUpper();
