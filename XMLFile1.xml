@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<appSettings>
+	<add key="OpenAI_API_Key" value="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" />
+</appSettings>

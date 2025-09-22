@@ -1,0 +1,48 @@
+# ========== Visual Studio ==========
+.vs/
+*.suo
+*.user
+*.userosscache
+*.rsuser
+*.sln.docstates
+
+# ========== Build Results ==========
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Tt]emp/
+TestResults/
+x64/
+x86/
+[Aa]ppPackages/
+*.cache
+*.ilk
+*.obj
+*.pdb
+*.tmp
+*.log
+
+# ========== NuGet ==========
+*.nupkg
+*.snupkg
+packages/
+*.nuget.props
+*.nuget.targets
+
+# ========== SQL Server ==========
+*.mdf    # Primary data files
+*.ldf    # Log files
+*.ndf    # Secondary data files
+
+# ========== Configs & Secrets ==========
+appsettings.*.json
+*.config.user
+*.Secret.json
+*.local.json
+
+# ========== Others ==========
+_ReSharper*/
+*.resharper
+*.DotSettings.user
+*.vsidx
+
