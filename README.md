@@ -31,7 +31,7 @@ What makes it **unique** is the integration of an **AI-based username suggestion
 
 * 💾 **SQL Server Integration**
 
-  * Stores user details (FullName, Username, Password, DateCreated, etc.).
+  * Stores user details (FullName, Username, Password, Role).
   * Validates username uniqueness before saving.
 
 * ⚡ **CRUD Support for Users**
