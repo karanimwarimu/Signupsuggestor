@@ -45,7 +45,7 @@ What makes it **unique** is the integration of an **AI-based username suggestion
 
 ## 🛠️ Tech Stack
 
-* **Frontend/UI**: C# WinForms
+* **Frontend/UI**: C# GUNA WINFORMS FRAMEWORK
 * **Backend**: .NET Framework 4.7.2+
 * **Database**: SQL Server
 * **AI/Logic**: Simple name transformation rules + uniqueness check , USE open ai (GET AN OPEN API KEY)
@@ -108,6 +108,5 @@ What makes it **unique** is the integration of an **AI-based username suggestion
 * Signup form with AI suggestions.
 * Login screen.
 * Database table view.
-
 ---
 
